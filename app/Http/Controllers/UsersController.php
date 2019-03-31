@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Forms\CreateUserForm;
-use App\User;
 use App\Group;
+use App\User;
 use App\UserGroup;
-use Kris\LaravelFormBuilder\FormBuilder;
 use Illuminate\Http\Request;
+use Kris\LaravelFormBuilder\FormBuilder;
 
 class UsersController extends Controller
 {
@@ -42,8 +42,10 @@ class UsersController extends Controller
 
     public function delete($id)
     {
-        User::where('id', '=', $id)->delete();
-        UserGroup::where('user_id' , '=', $id)->delete();
+        if ($id != 1) {
+            User::where('id', '=', $id)->delete();
+            UserGroup::where('user_id', '=', $id)->delete();
+        }
         return redirect('/users');
     }
 
